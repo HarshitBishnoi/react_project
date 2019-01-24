@@ -2,10 +2,11 @@ import React,{Component} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import cart from '../cart.png'
+import  Material from './material';
 
 class Home extends Component{
     state = {
-        summaries:[ ] ,
+        summaries:[ ] 
      
     }
     componentDidMount = () => {
@@ -35,7 +36,7 @@ class Home extends Component{
                                 { summary.products.length?(summary.products.map(product=>{
                                         return (
                                             <div>
-                                            <div className="card-text">Product name: {product.productName}</div>
+                                            <div className="card-text" key= {product.productId}>Product name: {product.productName}</div>
                                             <br/>
                                             </div>
                                         )
@@ -58,6 +59,7 @@ class Home extends Component{
         )
         return (
             <div className="container">
+                {/* <Material /> */}
              <h4 className="center">Order History</h4>
              {summaryList}
             </div>

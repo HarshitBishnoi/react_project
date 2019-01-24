@@ -8,7 +8,7 @@ const Navbar = () => {
         <a href="#!" className="brand-logo"><i className="large material-icons">store</i>Traveloka</a>
         <ul className="right">
           <li><Link to="/">Home</Link></li>
-          <li><Link to='/addressDetails'>Address Details</Link></li>
+          <li><Link to='/checkout'>Checkout</Link></li>
           <li><Link to='/contact'>Contact</Link></li>
         </ul>
       </div>

@@ -1,14 +1,20 @@
 import React ,{ Component } from 'react';
+import ProductDetails from './ProductDetails';
 
 class AddressDetails  extends Component {
-      state = {
+      
+    constructor(props) {
+        super(props);
+        this.state = {
             street:null,
             colony:null,
             city:null,
             state:null,
             pincode:null
-      }
-
+      };    
+    }
+    
+    
       handleChange=(e) => {
         this.setState({
             [e.target.id] : e.target.value
@@ -16,12 +22,21 @@ class AddressDetails  extends Component {
       }
     handleSubmit =(e) => {
         e.preventDefault();
+        console.log("state is");
         console.log(this.state);
+        this.props.callbackFromParent(this.state);
     }
+
       
    render(){
+
+     console.log("prop is");
+    console.log(this.props); 
        return (
-        <div>
+
+          
+        <div className="" >
+
             <form onSubmit={this.handleSubmit}>
                 <label htmlFor="street">Street:</label>
                 <input type="text" id="street" onChange={this.handleChange} />

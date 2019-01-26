@@ -10,14 +10,17 @@ class Home extends Component{
      
     }
     componentDidMount = () => {
-        axios.get('/orderSummary/')
+        axios.get('http://localhost:8080/orderSummary/')
             .then(res =>{
                console.log(res)
                this.setState({
-                summaries:res.data
+                summaries:res.data.responseData
                })
             })
             
+    }
+     renderStatus(status){
+        
     }
     
    
@@ -42,12 +45,9 @@ class Home extends Component{
                                         )
                                     })) : (<div className="center">No products to show</div>)
                                 }
-                                { summary.orderConfirmed ?   <button className="waves-effect waves-light btn"><i className="material-icons right">done_all</i> Order Confirmed</button>
-                                  :   <a className="waves-effect waves-light btn"><i className="material-icons right">do_not_disturb</i>Order not Confirmed</a>
-                
-                                    
-                                }
-                              
+                                <div className="card-text">{summary.status}</div>
+{/*                        
+                                {this.renderStatus(summary.status)} */}
                                  
     
                                 </div>

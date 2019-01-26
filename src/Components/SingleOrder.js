@@ -2,20 +2,28 @@ import React, { Component } from 'react'
 import axios from 'axios'
 class SingleOrder extends Component {
     state = {
-        order: null
+        order: null,
+        cancelStatus: "Cancel Order"
     }
     componentDidMount() {
-        // console.log(this.props);
+        console.log(this.props);
         let id = this.props.match.params.order_id;
-        axios.get('/orderSummary/' + id)
+        axios.get('http://localhost:8080/orderSummary/' + id)
             .then(res => {
                 this.setState({
-                    order: res.data
+                    order: res.data.responseData
                 })
-                // console.log(res)
+                 console.log(this.order)
             })
 
     }
+
+    cancelOrder = () => {
+        this.setState({
+            cancelStatus: "Order Cancelled"
+        })
+    }
+
     render() {
 
         const order = this.state.order ? (
@@ -41,7 +49,7 @@ class SingleOrder extends Component {
                     ) : (<div className="center">No products to show</div>)
                     }
 
-                    <a className="waves-effect waves-light btn"><i className="material-icons right">cancel</i>Cancel Order</a>
+                    <a href="#" className="waves-effect waves-light btn" onClick={this.cancelOrder}><i className="material-icons right">cancel</i>{this.state.cancelStatus}</a>
                 </div>
             </div>
 

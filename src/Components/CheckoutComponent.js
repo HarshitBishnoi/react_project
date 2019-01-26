@@ -5,32 +5,40 @@ import { connect } from 'react-redux'
 import Axios from 'axios';
 
 class CheckoutComponent extends Component{
+    state ={
+        addressDetails : 
+            {
+                street:null,
+                colony:null,
+                city:null,
+                state:null,
+                pinCode:null
+            }
 
-
-    constructor(props) {
-        super(props);
-        this.state ={
-            addressDetails : ''
-        };    
-    }
-
-    
-
-    myCallBack = (dataFromChild) => {
+    }; 
+    myCallBack = (addressDetails) => {
+        console.log(addressDetails);
         this.setState({
-            addressDetails: dataFromChild
+            addressDetails: this.addressDetails
         });
 
+        var headers = {
+            'Content-Type': 'application/json'
+        }
 
-        const {products, totalCost, cartId} =this.props;
-        Axios.post('/cartEntry',{
-            cartId: cartId,
-            totalCost: totalCost,
-            products: products
-
-        }).then(res =>{
-            console.log(res);
-        });
+         const {products, totalCost, cartId} =this.props;
+          console.log(products);
+          console.log(cartId);
+          console.log(addressDetails);
+          console.log(totalCost);
+         Axios.post('http://localhost:8080/addCartEntry/',{
+             cartId: cartId,
+             products: products ,
+             address : addressDetails ,
+             totalCost:totalCost 
+         },{headers: headers}).then(res =>{
+             console.log(res);
+         });
 
     
     };
@@ -48,8 +56,8 @@ class CheckoutComponent extends Component{
         };
         return(
             <div>            
-            <div style={rightCom}><ProductDetails/></div>
-            <div style={leftCom}><AddressDetails callbackFromParent={this.myCallback} /></div>
+            { <div style={rightCom}><ProductDetails/></div> }
+            <div style={leftCom}><AddressDetails myCallBack={this.myCallBack} /></div>
             <material />
         </div>
         )
@@ -60,7 +68,10 @@ class CheckoutComponent extends Component{
 const mapStateToProps = (state) => {
 
     return {
-        productsList: state.products
+        products: state.products,
+        totalCost: state.totalCost,
+        cartId: state.cartId
+
     }
 }
 
